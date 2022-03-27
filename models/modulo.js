@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const CategoriaSchema = Schema({
+const ModuloSchema = Schema({
   nombre: {
     type: String,
     required: [true, "EL nombre es obligatorio"],
@@ -17,9 +17,9 @@ const CategoriaSchema = Schema({
     required: true,
   },
 });
-CategoriaSchema.methods.toJSON = function () {
+ModuloSchema.methods.toJSON = function () {
   const { __v, estado, ...data } = this.toObject();
 
   return data;
 };
-module.exports = model("Categoria", CategoriaSchema);
+module.exports = model("Modulo", ModuloSchema);

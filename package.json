@@ -1,7 +1,7 @@
 {
-  "name": "07_restserver",
+  "name": "api-proyectomuledu",
   "version": "1.0.0",
-  "description": "",
+  "description": "RestAPI de Computacón Grafica",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

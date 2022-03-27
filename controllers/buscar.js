@@ -1,7 +1,7 @@
 const { response } = require("express");
 const { ObjectId } = require("mongoose").Types;
-const { Usuario, Modulo, Producto } = require("../models");
-const coleccionesPermitidas = ["usuarios", "modulo", "producto", "roles"];
+const { Usuario, Modulo, Cuestionario } = require("../models");
+const coleccionesPermitidas = ["usuarios", "modulo", "cuestionario", "roles"];
 const buscarUsuarios = async (termino = "", res = response) => {
   const esMogoID = ObjectId.isValid(termino);
 
@@ -26,41 +26,41 @@ const buscarModulos = async (termino = "", res = response) => {
   const esMongoID = ObjectId.isValid(termino); // TRUE
 
   if (esMongoID) {
-    const categoria = await Categoria.findById(termino);
+    const modulo = await Modulo.findById(termino);
     return res.json({
-      results: categoria ? [categoria] : [],
+      results: modulo ? [modulo] : [],
     });
   }
 
   const regex = new RegExp(termino, "i");
-  const modulos = await Categoria.find({ nombre: regex, estado: true });
+  const modulos = await Modulo.find({ nombre: regex, estado: true });
 
   res.json({
     results: modulos,
   });
 };
 
-const buscarProductos = async (termino = "", res = response) => {
+const buscarCuestionarios = async (termino = "", res = response) => {
   const esMongoID = ObjectId.isValid(termino); // TRUE
 
   if (esMongoID) {
-    const producto = await Producto.findById(termino).populate(
-      "categoria",
-      "nombre"
+    const cuestionario = await Cuestionario.findById(termino).populate(
+      "modulo",
+      "pregunta"
     );
     return res.json({
-      results: producto ? [producto] : [],
+      results: cuestionario ? [cuestionario] : [],
     });
   }
 
   const regex = new RegExp(termino, "i");
-  const productos = await Producto.find({
-    nombre: regex,
+  const cuestionarios = await Cuestionario.find({
+    pregunta: regex,
     estado: true,
-  }).populate("categoria", "nombre");
+  }).populate("modulo", "pregunta");
 
   res.json({
-    results: productos,
+    results: cuestionarios,
   });
 };
 const buscar = (req, res = response) => {
@@ -75,11 +75,11 @@ const buscar = (req, res = response) => {
     case "usuarios":
       buscarUsuarios(termino, res);
       break;
-    case "categoria":
+    case "modulo":
       buscarModulos(termino, res);
       break;
-    case "producto":
-      buscarProductos(termino, res);
+    case "cuestionario":
+      buscarCuestionarios(termino, res);
       break;
     case "roles":
       break;

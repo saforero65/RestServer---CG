@@ -1,32 +1,33 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const {
-  crearProducto,
-  obtenerProductos,
-  obtenerProducto,
-  actualizarProducto,
-  borrarProducto,
-} = require("../controllers/productos");
+  crearCuestionario,
+  obtenerCuestionarios,
+  obtenerCuestionario,
+  actualizarCuestionario,
+  borrarCuestionario,
+} = require("../controllers/cuestionarios");
 
 const {
-  existeCategoriaPorId,
-  existeProductoPorId,
+  existeModuloPorId,
+  existeCuestionarioPorId,
+  cuestionarioExiste,
 } = require("../helpers/db-validators");
 const { validarJWT, validarCampos, esAdminRole } = require("../middlewares");
 
 const router = Router();
 
 //Obtener todas las categorias - publico
-router.get("/", obtenerProductos);
+router.get("/", obtenerCuestionarios);
 //Obtener una categoria por id - publico
 router.get(
   "/:id",
   [
     check("id", "NO es un id de mongo valido").isMongoId(),
-    check("id").custom(existeProductoPorId),
+    check("id").custom(existeCuestionarioPorId),
     validarCampos,
   ],
-  obtenerProducto
+  obtenerCuestionario
 );
 
 //Crear categoria -provado - cualuir persona con un token valido
@@ -34,12 +35,14 @@ router.post(
   "/",
   [
     validarJWT,
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("categoria", "No es un id de mongo").isMongoId(),
-    check("categoria").custom(existeCategoriaPorId),
+
+    check("pregunta", "El nombre es obligatorio").not().isEmpty(),
+
+    check("modulo", "No es un id de mongo").isMongoId(),
+    check("modulo").custom(existeModuloPorId),
     validarCampos,
   ],
-  crearProducto
+  crearCuestionario
 );
 
 //Actualizar - privado - cualquiera con token valido
@@ -48,10 +51,10 @@ router.put(
   [
     validarJWT,
     // check("categoria", "No es un id de mongo").isMongoId(),
-    check("id").custom(existeProductoPorId),
+    check("id").custom(existeCuestionarioPorId),
     validarCampos,
   ],
-  actualizarProducto
+  actualizarCuestionario
 );
 
 //Borrar una categoria - Admin
@@ -61,9 +64,9 @@ router.delete(
     validarJWT,
     esAdminRole,
     check("id", "NO es un id de mongo valido").isMongoId(),
-    check("id").custom(existeProductoPorId),
+    check("id").custom(existeCuestionarioPorId),
     validarCampos,
   ],
-  borrarProducto
+  borrarCuestionario
 );
 module.exports = router;

@@ -30,7 +30,7 @@ const crearModulo = async (req, res = response) => {
 
   if (moduloDB) {
     return res.status(400).json({
-      msg: `La categoria ${moduloDB.nombre}, ya existe`,
+      msg: `El modulo ${moduloDB.nombre}, ya existe`,
     });
   }
 

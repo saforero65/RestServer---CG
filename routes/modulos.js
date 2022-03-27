@@ -12,9 +12,9 @@ const { validarJWT, validarCampos, esAdminRole } = require("../middlewares");
 
 const router = Router();
 
-//Obtener todas las categorias - publico
+//Obtener todas las modulos - publico
 router.get("/", obtenerModulos);
-//Obtener una categoria por id - publico
+//Obtener un modulo por id - publico
 router.get(
   "/:id",
   [
@@ -25,7 +25,7 @@ router.get(
   obtenerModulo
 );
 
-//Crear categoria -provado - cualuir persona con un token valido
+//Crear modulo -provado - cualuir persona con un token valido
 router.post(
   "/",
   [
@@ -48,7 +48,7 @@ router.put(
   actualizarModulo
 );
 
-//Borrar una categoria - Admin
+//Borrar un modulo - Admin
 router.delete(
   "/:id",
   [

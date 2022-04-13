@@ -76,7 +76,7 @@ const actualizarCuestionario = async (req, res = response) => {
 };
 const borrarCuestionario = async (req, res = response) => {
   const { id } = req.params;
-  const cuestionarioBorrado = await Producto.findByIdAndUpdate(
+  const cuestionarioBorrado = await Cuestionario.findByIdAndUpdate(
     id,
     { estado: false },
     { new: true }

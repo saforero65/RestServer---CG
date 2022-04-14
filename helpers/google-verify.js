@@ -9,10 +9,13 @@ const googleVerify = async (idToken = "") => {
     // Or, if multiple clients access the backend:
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
+
+  console.log(ticket);
   const { name: nombre, picture: img, email: correo } = ticket.getPayload();
   //   const userid = payload["sub"];
   // If request specified a G Suite domain:
   // const domain = payload['hd'];
+
   return {
     nombre,
     img,

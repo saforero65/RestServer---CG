@@ -19,6 +19,13 @@ const usuariosGet = async (req, res = response) => {
     usuarios,
   });
 };
+const usuarioGet = async (req, res = response) => {
+  const { id } = req.params;
+
+  const usuario = await Usuario.findById(id);
+
+  res.json(usuario);
+};
 const usuariosPut = async (req, res = response) => {
   const { id } = req.params;
   const { _id, password, google, correo, ...resto } = req.body;
@@ -76,4 +83,5 @@ module.exports = {
   usuariosDelete,
   usuariosPut,
   usuariosPatch,
+  usuarioGet,
 };

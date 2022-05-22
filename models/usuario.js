@@ -32,6 +32,11 @@ const UsuarioSchema = Schema({
     type: Boolean,
     default: false,
   },
+  logros: {
+    type: Array,
+    default: [""],
+    required: false,
+  },
 });
 
 UsuarioSchema.methods.toJSON = function () {
